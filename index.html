@@ -1,152 +1,127 @@
 <!doctype html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>LawAndGood - 소송금융 AI 분석 대시보드</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <style>
-            .grade-high {
-                background: #fee2e2;
-                color: #991b1b;
-            }
-            .grade-medium {
-                background: #fef9c3;
-                color: #854d0e;
-            }
-            .grade-low {
-                background: #dcfce7;
-                color: #166534;
-            }
-            .grade-error {
-                background: #f3f4f6;
-                color: #6b7280;
-            }
-        </style>
-    </head>
-    <body class="bg-gray-900 text-white min-h-screen">
-        <header class="bg-gray-800 border-b border-gray-700 py-6">
-            <div class="max-w-7xl mx-auto px-4">
-                <h1 class="text-3xl font-bold">⚖️ LawAndGood</h1>
-                <p class="text-gray-400 mt-1">소송금융 AI 분석 대시보드</p>
-            </div>
-        </header>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LawAndGood - 소송금융 AI 분석 대시보드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .grade-high { background: #fee2e2; color: #991b1b; }
+        .grade-medium { background: #fef9c3; color: #854d0e; }
+        .grade-low { background: #dcfce7; color: #166534; }
+        .grade-error { background: #f3f4f6; color: #6b7280; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
 
-        <main class="max-w-7xl mx-auto px-4 py-8">
-            <section class="grid grid-cols-4 gap-4 mb-8" id="stats">
-                <div class="bg-gray-800 rounded-lg p-4 text-center">
-                    <p class="text-gray-400 text-sm">전체 기사</p>
-                    <p class="text-2xl font-bold" id="total">-</p>
-                </div>
-                <div class="bg-gray-800 rounded-lg p-4 text-center">
-                    <p class="text-gray-400 text-sm">분석 완료</p>
-                    <p class="text-2xl font-bold text-green-400" id="analyzed">
-                        -
-                    </p>
-                </div>
-                <div class="bg-gray-800 rounded-lg p-4 text-center">
-                    <p class="text-gray-400 text-sm">투자적합 High</p>
-                    <p class="text-2xl font-bold text-red-400" id="highCount">
-                        -
-                    </p>
-                </div>
-                <div class="bg-gray-800 rounded-lg p-4 text-center">
-                    <p class="text-gray-400 text-sm">미분석</p>
-                    <p class="text-2xl font-bold text-yellow-400" id="pending">
-                        -
-                    </p>
-                </div>
-            </section>
+<header class="bg-gray-800 border-b border-gray-700 py-6">
+    <div class="max-w-7xl mx-auto px-4">
+        <h1 class="text-3xl font-bold">⚖️ LawAndGood</h1>
+        <p class="text-gray-400 mt-1">소송금융 AI 분석 대시보드</p>
+    </div>
+</header>
 
-            <section class="mb-4 flex gap-2">
-                <button
-                    onclick="filterBy('all')"
-                    class="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600"
-                >
-                    전체
-                </button>
-                <button
-                    onclick="filterBy('High')"
-                    class="px-4 py-2 bg-red-900 rounded hover:bg-red-800"
-                >
-                    🔴 High
-                </button>
-                <button
-                    onclick="filterBy('Medium')"
-                    class="px-4 py-2 bg-yellow-900 rounded hover:bg-yellow-800"
-                >
-                    🟡 Medium
-                </button>
-                <button
-                    onclick="filterBy('Low')"
-                    class="px-4 py-2 bg-green-900 rounded hover:bg-green-800"
-                >
-                    🟢 Low
-                </button>
-            </section>
+<main class="max-w-7xl mx-auto px-4 py-8">
+    <section class="grid grid-cols-4 gap-4 mb-8">
+        <div class="bg-gray-800 rounded-lg p-4 text-center">
+            <p class="text-gray-400 text-sm">전체 기사</p>
+            <p class="text-2xl font-bold" id="total">-</p>
+        </div>
+        <div class="bg-gray-800 rounded-lg p-4 text-center">
+            <p class="text-gray-400 text-sm">분석 완료</p>
+            <p class="text-2xl font-bold text-green-400" id="analyzed">-</p>
+        </div>
+        <div class="bg-gray-800 rounded-lg p-4 text-center">
+            <p class="text-gray-400 text-sm">투자적합 High</p>
+            <p class="text-2xl font-bold text-red-400" id="highCount">-</p>
+        </div>
+        <div class="bg-gray-800 rounded-lg p-4 text-center">
+            <p class="text-gray-400 text-sm">미분석</p>
+            <p class="text-2xl font-bold text-yellow-400" id="pending">-</p>
+        </div>
+    </section>
 
-            <section class="overflow-x-auto">
-                <table class="w-full text-sm text-left">
-                    <thead class="bg-gray-800 text-gray-400 uppercase text-xs">
-                        <tr>
-                            <th class="px-4 py-3">제목</th>
-                            <th class="px-4 py-3">소송가능성</th>
-                            <th class="px-4 py-3">피해규모</th>
-                            <th class="px-4 py-3">집단소송</th>
-                            <th class="px-4 py-3">투자적합도</th>
-                            <th class="px-4 py-3">요약</th>
-                            <th class="px-4 py-3">날짜</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody" class="divide-y divide-gray-700">
-                        <tr>
-                            <td
-                                colspan="7"
-                                class="px-4 py-8 text-center text-gray-500"
-                            >
-                                로딩 중...
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </main>
+    <section class="mb-4 flex gap-2">
+        <button onclick="filterBy('all')" class="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600">전체</button>
+        <button onclick="filterBy('High')" class="px-4 py-2 bg-red-900 rounded hover:bg-red-800">🔴 High</button>
+        <button onclick="filterBy('Medium')" class="px-4 py-2 bg-yellow-900 rounded hover:bg-yellow-800">🟡 Medium</button>
+        <button onclick="filterBy('Low')" class="px-4 py-2 bg-green-900 rounded hover:bg-green-800">🟢 Low</button>
+    </section>
 
-        <script>
+    <section class="overflow-x-auto">
+        <table class="w-full text-sm text-left">
+            <thead class="bg-gray-800 text-gray-400 uppercase text-xs">
+                <tr>
+                    <th class="px-4 py-3">제목</th>
+                    <th class="px-4 py-3">소송가능성</th>
+                    <th class="px-4 py-3">피해규모</th>
+                    <th class="px-4 py-3">집단소송</th>
+                    <th class="px-4 py-3">투자적합도</th>
+                    <th class="px-4 py-3">요약</th>
+                    <th class="px-4 py-3">날짜</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody" class="divide-y divide-gray-700">
+                <tr><td colspan="7" class="px-4 py-8 text-center text-gray-500">로딩 중...</td></tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<script>
 const SHEET_ID = '18Po9tadI7g0yMdLrIE8ueC6tYP-SnstUtOTRMCEKwus';
 const SHEET_NAME = 'Sheet1';
+
+// Google Sheets 컬럼 순서 (A~L열) — 헤더가 빈 문자열로 올 때 대비
+const COLUMN_MAP = [
+    'title', 'description', 'link', 'pubDate', 'keywords', 'source',
+    '분석상태', '소송가능성', '피해규모', '집단소송', '투자적합도', '요약'
+];
+
 let allData = [];
 
-// JSONP 방식: CORS 우회 (file:// 에서도 작동)
 function loadData() {
     const callbackName = 'gsheetCallback_' + Date.now();
 
     window[callbackName] = function(response) {
         try {
-            const headers = response.table.cols.map(c => c.label);
+            // 헤더 추출: gviz label이 비어있으면 COLUMN_MAP 사용
+            const headers = response.table.cols.map((c, i) => {
+                return (c.label && c.label.trim()) ? c.label.trim() : (COLUMN_MAP[i] || `col_${i}`);
+            });
+
+            console.log('Headers:', headers);
+
             const rows = response.table.rows.map(row => {
                 const obj = {};
                 row.c.forEach((cell, i) => {
-                    obj[headers[i]] = cell ? (cell.v || '') : '';
+                    if (i < headers.length) {
+                        obj[headers[i]] = cell ? (cell.v !== null && cell.v !== undefined ? String(cell.v) : '') : '';
+                    }
                 });
                 return obj;
             });
+
             allData = rows;
+            console.log('Total rows:', rows.length);
+            console.log('Sample row:', JSON.stringify(rows[0]));
+            console.log('Analyzed count:', rows.filter(r => r['분석상태'] === 'done').length);
+
             updateStats();
             renderTable(rows);
         } catch (e) {
             console.error('파싱 실패:', e);
             document.getElementById('tableBody').innerHTML =
-                '<tr><td colspan="7" class="px-4 py-8 text-center text-red-400">데이터 파싱 실패</td></tr>';
+                `<tr><td colspan="7" class="px-4 py-8 text-center text-red-400">데이터 파싱 실패: ${e.message}</td></tr>`;
         }
-        // 콜백 정리
         delete window[callbackName];
-        document.getElementById(callbackName).remove();
+        const el = document.getElementById(callbackName);
+        if (el) el.remove();
     };
 
     const script = document.createElement('script');
     script.id = callbackName;
-    script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json;responseHandler:${callbackName}&sheet=${SHEET_NAME}`;
+    script.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json;responseHandler:${callbackName}&sheet=${SHEET_NAME}&headers=1`;
     script.onerror = function() {
         document.getElementById('tableBody').innerHTML =
             '<tr><td colspan="7" class="px-4 py-8 text-center text-red-400">데이터 로딩 실패<br>Google Sheets 공유 설정을 확인하세요</td></tr>';
@@ -185,17 +160,17 @@ function renderTable(data) {
     }
     tbody.innerHTML = analyzed.map(r => `
         <tr class="hover:bg-gray-800">
-            <td class="px-4 py-3">
-                <a href="${r.link}" target="_blank" class="text-blue-400 hover:underline">
-                    ${(r.title || '').slice(0, 40)}...
+            <td class="px-4 py-3 max-w-xs">
+                <a href="${r.link || '#'}" target="_blank" class="text-blue-400 hover:underline">
+                    ${(r.title || '').slice(0, 50)}...
                 </a>
             </td>
             <td class="px-4 py-3">${badge(r['소송가능성'])}</td>
             <td class="px-4 py-3">${badge(r['피해규모'])}</td>
             <td class="px-4 py-3">${badge(r['집단소송'])}</td>
             <td class="px-4 py-3">${badge(r['투자적합도'])}</td>
-            <td class="px-4 py-3 text-gray-300">${r['요약'] || ''}</td>
-            <td class="px-4 py-3 text-gray-500 text-xs">${(r.pubDate || '').slice(0, 10)}</td>
+            <td class="px-4 py-3 text-gray-300 max-w-xs truncate">${r['요약'] || ''}</td>
+            <td class="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">${(r.pubDate || '').slice(0, 16)}</td>
         </tr>
     `).join('');
 }
@@ -210,6 +185,7 @@ function filterBy(grade) {
 
 loadData();
 setInterval(loadData, 300000);
-        </script>
-    </body>
+</script>
+
+</body>
 </html>
