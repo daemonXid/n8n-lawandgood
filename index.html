@@ -6,10 +6,26 @@
     <title>LawAndGood - 소송금융 AI 분석 대시보드</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .grade-high { background: #fee2e2; color: #991b1b; }
-        .grade-medium { background: #fef9c3; color: #854d0e; }
-        .grade-low { background: #dcfce7; color: #166534; }
-        .grade-error { background: #f3f4f6; color: #6b7280; }
+        .grade-high {
+            background: #991b1b;
+            color: #fecaca;
+            font-weight: 600;
+        }
+        .grade-medium {
+            background: #ca8a04;
+            color: #fef9c3;
+            font-weight: 600;
+        }
+        .grade-low {
+            background: #16a34a;
+            color: #dcfce7;
+            font-weight: 600;
+        }
+        .grade-error {
+            background: #4b5563;
+            color: #e5e7eb;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
@@ -41,11 +57,25 @@
         </div>
     </section>
 
-    <section class="mb-4 flex gap-2">
-        <button onclick="filterBy('all')" class="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600">전체</button>
-        <button onclick="filterBy('High')" class="px-4 py-2 bg-red-900 rounded hover:bg-red-800">🔴 High</button>
-        <button onclick="filterBy('Medium')" class="px-4 py-2 bg-yellow-900 rounded hover:bg-yellow-800">🟡 Medium</button>
-        <button onclick="filterBy('Low')" class="px-4 py-2 bg-green-900 rounded hover:bg-green-800">🟢 Low</button>
+    <section class="mb-4 flex justify-between items-center">
+        <div class="flex gap-2">
+            <button onclick="filterBy('all')" class="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600">전체</button>
+            <button onclick="filterBy('High')" class="px-4 py-2 bg-red-900 rounded hover:bg-red-800">🔴 High</button>
+            <button onclick="filterBy('Medium')" class="px-4 py-2 bg-yellow-900 rounded hover:bg-yellow-800">🟡 Medium</button>
+            <button onclick="filterBy('Low')" class="px-4 py-2 bg-green-900 rounded hover:bg-green-800">🟢 Low</button>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="text-gray-400 text-sm">
+                <span id="displayCount">0</span>개 표시 중
+            </span>
+            <select id="pageSize" onchange="changePageSize()" class="px-3 py-2 bg-gray-700 rounded text-sm">
+                <option value="50">50개씩</option>
+                <option value="100" selected>100개씩</option>
+                <option value="200">200개씩</option>
+                <option value="500">500개씩</option>
+                <option value="all">전체 보기</option>
+            </select>
+        </div>
     </section>
 
     <section class="overflow-x-auto">
@@ -66,26 +96,37 @@
             </tbody>
         </table>
     </section>
+
+    <section id="pagination" class="mt-6 flex justify-center items-center gap-2" style="display: none;">
+        <button onclick="goToPage(1)" class="px-3 py-2 bg-gray-700 rounded hover:bg-gray-600 disabled:opacity-50" id="firstBtn">처음</button>
+        <button onclick="goToPage(currentPage - 1)" class="px-3 py-2 bg-gray-700 rounded hover:bg-gray-600 disabled:opacity-50" id="prevBtn">이전</button>
+        <span class="text-gray-400 px-4" id="pageInfo">1 / 1</span>
+        <button onclick="goToPage(currentPage + 1)" class="px-3 py-2 bg-gray-700 rounded hover:bg-gray-600 disabled:opacity-50" id="nextBtn">다음</button>
+        <button onclick="goToPage(totalPages)" class="px-3 py-2 bg-gray-700 rounded hover:bg-gray-600 disabled:opacity-50" id="lastBtn">마지막</button>
+    </section>
 </main>
 
 <script>
 const SHEET_ID = '18Po9tadI7g0yMdLrIE8ueC6tYP-SnstUtOTRMCEKwus';
 const SHEET_NAME = 'Sheet1';
 
-// Google Sheets 컬럼 순서 (A~L열) — 헤더가 빈 문자열로 올 때 대비
 const COLUMN_MAP = [
     'title', 'description', 'link', 'pubDate', 'keywords', 'source',
     '분석상태', '소송가능성', '피해규모', '집단소송', '투자적합도', '요약'
 ];
 
 let allData = [];
+let currentFilter = 'all';
+let currentPage = 1;
+let pageSize = 100;
+let totalPages = 1;
 
+// JSONP 방식: CORS 우회 (file:// + GitHub Pages 모두 작동)
 function loadData() {
     const callbackName = 'gsheetCallback_' + Date.now();
 
     window[callbackName] = function(response) {
         try {
-            // 헤더 추출: gviz label이 비어있으면 COLUMN_MAP 사용
             const headers = response.table.cols.map((c, i) => {
                 return (c.label && c.label.trim()) ? c.label.trim() : (COLUMN_MAP[i] || `col_${i}`);
             });
@@ -104,11 +145,10 @@ function loadData() {
 
             allData = rows;
             console.log('Total rows:', rows.length);
-            console.log('Sample row:', JSON.stringify(rows[0]));
             console.log('Analyzed count:', rows.filter(r => r['분석상태'] === 'done').length);
 
             updateStats();
-            renderTable(rows);
+            applyFilter();
         } catch (e) {
             console.error('파싱 실패:', e);
             document.getElementById('tableBody').innerHTML =
@@ -151,14 +191,37 @@ function badge(val) {
     return `<span class="px-2 py-1 rounded text-xs font-bold ${gradeClass(val)}">${val}</span>`;
 }
 
+function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return dateStr.slice(0, 16);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 function renderTable(data) {
     const analyzed = data.filter(r => r['분석상태'] === 'done');
     const tbody = document.getElementById('tableBody');
+
     if (analyzed.length === 0) {
         tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-500">분석된 기사가 없습니다</td></tr>';
+        document.getElementById('pagination').style.display = 'none';
+        document.getElementById('displayCount').textContent = '0';
         return;
     }
-    tbody.innerHTML = analyzed.map(r => `
+
+    const size = pageSize === 'all' ? analyzed.length : parseInt(pageSize);
+    totalPages = Math.ceil(analyzed.length / size);
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    const startIdx = (currentPage - 1) * size;
+    const endIdx = pageSize === 'all' ? analyzed.length : startIdx + size;
+    const pageData = analyzed.slice(startIdx, endIdx);
+
+    tbody.innerHTML = pageData.map(r => `
         <tr class="hover:bg-gray-800">
             <td class="px-4 py-3 max-w-xs">
                 <a href="${r.link || '#'}" target="_blank" class="text-blue-400 hover:underline">
@@ -169,18 +232,52 @@ function renderTable(data) {
             <td class="px-4 py-3">${badge(r['피해규모'])}</td>
             <td class="px-4 py-3">${badge(r['집단소송'])}</td>
             <td class="px-4 py-3">${badge(r['투자적합도'])}</td>
-            <td class="px-4 py-3 text-gray-300 max-w-xs truncate">${r['요약'] || ''}</td>
-            <td class="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">${(r.pubDate || '').slice(0, 16)}</td>
+            <td class="px-4 py-3 text-gray-300 max-w-md">
+                <div class="whitespace-normal break-words">${r['요약'] || ''}</div>
+            </td>
+            <td class="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">${formatDate(r.pubDate)}</td>
         </tr>
     `).join('');
+
+    document.getElementById('displayCount').textContent = analyzed.length;
+
+    if (pageSize === 'all') {
+        document.getElementById('pagination').style.display = 'none';
+    } else {
+        document.getElementById('pagination').style.display = 'flex';
+        document.getElementById('pageInfo').textContent = `${currentPage} / ${totalPages}`;
+        document.getElementById('firstBtn').disabled = currentPage === 1;
+        document.getElementById('prevBtn').disabled = currentPage === 1;
+        document.getElementById('nextBtn').disabled = currentPage === totalPages;
+        document.getElementById('lastBtn').disabled = currentPage === totalPages;
+    }
 }
 
 function filterBy(grade) {
-    if (grade === 'all') {
+    currentFilter = grade;
+    currentPage = 1;
+    applyFilter();
+}
+
+function applyFilter() {
+    if (currentFilter === 'all') {
         renderTable(allData);
     } else {
-        renderTable(allData.filter(r => r['투자적합도'] === grade));
+        renderTable(allData.filter(r => r['투자적합도'] === currentFilter));
     }
+}
+
+function goToPage(page) {
+    if (page < 1 || page > totalPages) return;
+    currentPage = page;
+    applyFilter();
+}
+
+function changePageSize() {
+    const select = document.getElementById('pageSize');
+    pageSize = select.value;
+    currentPage = 1;
+    applyFilter();
 }
 
 loadData();
