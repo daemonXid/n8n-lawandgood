@@ -32,49 +32,152 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+        
+        .design-btn { opacity: 0.6; }
+        .design-btn.active { opacity: 1; font-weight: bold; }
+        
+        /* Design 1: Black & White */
+        body.design-1 { background: #ffffff; color: #1a1a1a; }
+        body.design-1 .header-bg { background: #000000; border-color: #e5e7eb; }
+        body.design-1 .header-title { color: #ffffff; }
+        body.design-1 .header-subtitle { color: #9ca3af; }
+        body.design-1 .design-btn { background: #333; color: #fff; }
+        body.design-1 .design-btn.active { background: #fff; color: #000; }
+        body.design-1 .stat-card { background: #f8f9fa; border-color: #e5e7eb; }
+        body.design-1 .stat-label { color: #6b7280; }
+        body.design-1 .filter-btn { background: #e5e7eb; color: #1a1a1a; }
+        body.design-1 .filter-btn:hover { background: #d1d5db; }
+        body.design-1 .count-text { color: #6b7280; }
+        body.design-1 .page-select { background: #f8f9fa; color: #1a1a1a; border-color: #d1d5db; }
+        body.design-1 .table-container { background: #fff; border-color: #e5e7eb; }
+        body.design-1 .table-header { background: #f8f9fa; color: #374151; border-color: #d1d5db; }
+        body.design-1 .table-body { color: #1a1a1a; }
+        body.design-1 .table-body tr:hover { background: #f9fafb; }
+        body.design-1 .table-body a { color: #2563eb; }
+        body.design-1 .pagination-btn { background: #e5e7eb; color: #1a1a1a; }
+        body.design-1 .pagination-btn:hover { background: #d1d5db; }
+        body.design-1 .pagination-info { color: #6b7280; }
+        
+        /* Design 2: Blue */
+        body.design-2 { background: #eff6ff; color: #1e3a8a; }
+        body.design-2 .header-bg { background: #1e40af; border-color: #3b82f6; }
+        body.design-2 .header-title { color: #fff; }
+        body.design-2 .header-subtitle { color: #93c5fd; }
+        body.design-2 .design-btn { background: #3b82f6; color: #fff; }
+        body.design-2 .design-btn.active { background: #dbeafe; color: #1e40af; }
+        body.design-2 .stat-card { background: #dbeafe; border-color: #93c5fd; }
+        body.design-2 .stat-label { color: #1e40af; }
+        body.design-2 .filter-btn { background: #bfdbfe; color: #1e40af; }
+        body.design-2 .filter-btn:hover { background: #93c5fd; }
+        body.design-2 .count-text { color: #1e40af; }
+        body.design-2 .page-select { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+        body.design-2 .table-container { background: #fff; border-color: #93c5fd; }
+        body.design-2 .table-header { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+        body.design-2 .table-body { color: #1e3a8a; }
+        body.design-2 .table-body tr:hover { background: #f0f9ff; }
+        body.design-2 .table-body a { color: #2563eb; }
+        body.design-2 .pagination-btn { background: #bfdbfe; color: #1e40af; }
+        body.design-2 .pagination-btn:hover { background: #93c5fd; }
+        body.design-2 .pagination-info { color: #1e40af; }
+        
+        /* Design 3: Green */
+        body.design-3 { background: #f0fdf4; color: #14532d; }
+        body.design-3 .header-bg { background: #15803d; border-color: #22c55e; }
+        body.design-3 .header-title { color: #fff; }
+        body.design-3 .header-subtitle { color: #86efac; }
+        body.design-3 .design-btn { background: #22c55e; color: #fff; }
+        body.design-3 .design-btn.active { background: #dcfce7; color: #15803d; }
+        body.design-3 .stat-card { background: #dcfce7; border-color: #86efac; }
+        body.design-3 .stat-label { color: #15803d; }
+        body.design-3 .filter-btn { background: #bbf7d0; color: #15803d; }
+        body.design-3 .filter-btn:hover { background: #86efac; }
+        body.design-3 .count-text { color: #15803d; }
+        body.design-3 .page-select { background: #dcfce7; color: #15803d; border-color: #86efac; }
+        body.design-3 .table-container { background: #fff; border-color: #86efac; }
+        body.design-3 .table-header { background: #dcfce7; color: #15803d; border-color: #86efac; }
+        body.design-3 .table-body { color: #14532d; }
+        body.design-3 .table-body tr:hover { background: #f7fee7; }
+        body.design-3 .table-body a { color: #16a34a; }
+        body.design-3 .pagination-btn { background: #bbf7d0; color: #15803d; }
+        body.design-3 .pagination-btn:hover { background: #86efac; }
+        body.design-3 .pagination-info { color: #15803d; }
+        
+        /* Design 4: Gray Dark */
+        body.design-4 { background: #1f2937; color: #f9fafb; }
+        body.design-4 .header-bg { background: #111827; border-color: #374151; }
+        body.design-4 .header-title { color: #f9fafb; }
+        body.design-4 .header-subtitle { color: #9ca3af; }
+        body.design-4 .design-btn { background: #4b5563; color: #f9fafb; }
+        body.design-4 .design-btn.active { background: #6b7280; color: #fff; }
+        body.design-4 .stat-card { background: #374151; border-color: #4b5563; }
+        body.design-4 .stat-label { color: #d1d5db; }
+        body.design-4 .filter-btn { background: #4b5563; color: #f9fafb; }
+        body.design-4 .filter-btn:hover { background: #6b7280; }
+        body.design-4 .count-text { color: #d1d5db; }
+        body.design-4 .page-select { background: #374151; color: #f9fafb; border-color: #4b5563; }
+        body.design-4 .table-container { background: #111827; border-color: #374151; }
+        body.design-4 .table-header { background: #1f2937; color: #d1d5db; border-color: #374151; }
+        body.design-4 .table-body { color: #e5e7eb; }
+        body.design-4 .table-body tr:hover { background: #374151; }
+        body.design-4 .table-body a { color: #60a5fa; }
+        body.design-4 .pagination-btn { background: #4b5563; color: #f9fafb; }
+        body.design-4 .pagination-btn:hover { background: #6b7280; }
+        body.design-4 .pagination-info { color: #d1d5db; }
     </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
+<body class="design-1 min-h-screen">
 
-<header class="bg-gray-800 border-b border-gray-700 py-6">
+<header class="header-bg border-b py-6">
     <div class="max-w-7xl mx-auto px-4">
-        <h1 class="text-3xl font-bold">⚖️ LawAndGood</h1>
-        <p class="text-gray-400 mt-1">소송금융 AI 분석 대시보드</p>
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold header-title">⚖️ LawAndGood</h1>
+                <p class="header-subtitle mt-1">소송금융 AI 분석 대시보드</p>
+            </div>
+            <nav class="flex gap-2">
+                <button onclick="switchDesign(1)" id="designBtn1" class="design-btn active px-5 py-2 rounded-lg font-semibold transition-all">1</button>
+                <button onclick="switchDesign(2)" id="designBtn2" class="design-btn px-5 py-2 rounded-lg font-semibold transition-all">2</button>
+                <button onclick="switchDesign(3)" id="designBtn3" class="design-btn px-5 py-2 rounded-lg font-semibold transition-all">3</button>
+                <button onclick="switchDesign(4)" id="designBtn4" class="design-btn px-5 py-2 rounded-lg font-semibold transition-all">4</button>
+            </nav>
+        </div>
     </div>
 </header>
 
 <main class="max-w-7xl mx-auto px-4 py-8">
     <section class="grid grid-cols-4 gap-4 mb-8">
-        <div class="bg-gray-800 rounded-lg p-4 text-center">
-            <p class="text-gray-400 text-sm">전체 기사</p>
+        <div class="stat-card rounded-lg p-4 text-center border">
+            <p class="stat-label text-sm">전체 기사</p>
             <p class="text-2xl font-bold" id="total">-</p>
         </div>
-        <div class="bg-gray-800 rounded-lg p-4 text-center">
-            <p class="text-gray-400 text-sm">분석 완료</p>
-            <p class="text-2xl font-bold text-green-400" id="analyzed">-</p>
+        <div class="stat-card rounded-lg p-4 text-center border">
+            <p class="stat-label text-sm">분석 완료</p>
+            <p class="text-2xl font-bold text-green-600" id="analyzed">-</p>
         </div>
-        <div class="bg-gray-800 rounded-lg p-4 text-center">
-            <p class="text-gray-400 text-sm">투자적합 High</p>
-            <p class="text-2xl font-bold text-red-400" id="highCount">-</p>
+        <div class="stat-card rounded-lg p-4 text-center border">
+            <p class="stat-label text-sm">투자적합 High</p>
+            <p class="text-2xl font-bold text-red-600" id="highCount">-</p>
         </div>
-        <div class="bg-gray-800 rounded-lg p-4 text-center">
-            <p class="text-gray-400 text-sm">미분석</p>
-            <p class="text-2xl font-bold text-yellow-400" id="pending">-</p>
+        <div class="stat-card rounded-lg p-4 text-center border">
+            <p class="stat-label text-sm">미분석</p>
+            <p class="text-2xl font-bold text-yellow-600" id="pending">-</p>
         </div>
     </section>
 
     <section class="mb-4 flex justify-between items-center">
-        <div class="flex gap-2">
-            <button onclick="filterBy('all')" class="px-4 py-2 bg-gray-700 rounded hover:bg-gray-600">전체</button>
-            <button onclick="filterBy('High')" class="px-4 py-2 bg-red-900 rounded hover:bg-red-800">🔴 High</button>
-            <button onclick="filterBy('Medium')" class="px-4 py-2 bg-yellow-900 rounded hover:bg-yellow-800">🟡 Medium</button>
-            <button onclick="filterBy('Low')" class="px-4 py-2 bg-green-900 rounded hover:bg-green-800">🟢 Low</button>
+        <div class="flex gap-2 flex-wrap">
+            <button onclick="filterBy('all')" class="filter-btn px-4 py-2 rounded font-semibold">전체</button>
+            <button onclick="filterBy('High')" class="filter-btn px-4 py-2 rounded font-semibold">🔴 High</button>
+            <button onclick="filterBy('Medium')" class="filter-btn px-4 py-2 rounded font-semibold">🟡 Medium</button>
+            <button onclick="filterBy('Low')" class="filter-btn px-4 py-2 rounded font-semibold">🟢 Low</button>
+            <button onclick="filterBy('bookmarked')" class="filter-btn px-4 py-2 rounded font-semibold">⭐ 찜</button>
+            <button onclick="toggleGrouping()" class="filter-btn px-4 py-2 rounded font-semibold">🔗 그룹화</button>
         </div>
         <div class="flex items-center gap-4">
-            <span class="text-gray-400 text-sm">
+            <span class="count-text text-sm font-medium">
                 <span id="displayCount">0</span>개 표시 중
             </span>
-            <select id="pageSize" onchange="changePageSize()" class="px-3 py-2 bg-gray-700 rounded text-sm">
+            <select id="pageSize" onchange="changePageSize()" class="page-select px-3 py-2 border rounded text-sm">
                 <option value="50">50개씩</option>
                 <option value="100" selected>100개씩</option>
                 <option value="200">200개씩</option>
@@ -84,31 +187,30 @@
         </div>
     </section>
 
-    <section class="overflow-x-auto">
+    <section class="overflow-x-auto table-container rounded-lg border">
         <table class="w-full text-sm text-left table-fixed">
-            <thead class="bg-gray-800 text-gray-400 uppercase text-xs">
+            <thead class="table-header uppercase text-xs border-b-2">
                 <tr>
-                    <th class="px-3 py-3 w-[20%]">제목</th>
-                    <th class="px-2 py-3 w-[9%]">소송가능성</th>
-                    <th class="px-2 py-3 w-[9%]">피해규모</th>
-                    <th class="px-2 py-3 w-[9%]">집단소송</th>
-                    <th class="px-2 py-3 w-[9%]">투자적합도</th>
-                    <th class="px-3 py-3 w-[34%]">요약</th>
-                    <th class="px-2 py-3 w-[10%]">날짜</th>
+                    <th class="px-3 py-3 w-[25%] font-bold">제목</th>
+                    <th class="px-2 py-3 w-[10%] font-bold">소송가능성</th>
+                    <th class="px-2 py-3 w-[10%] font-bold">피해규모</th>
+                    <th class="px-2 py-3 w-[10%] font-bold">집단소송</th>
+                    <th class="px-2 py-3 w-[10%] font-bold">투자적합도</th>
+                    <th class="px-3 py-3 w-[35%] font-bold">요약</th>
                 </tr>
             </thead>
-            <tbody id="tableBody" class="divide-y divide-gray-700">
-                <tr><td colspan="7" class="px-4 py-8 text-center text-gray-500">로딩 중...</td></tr>
+            <tbody id="tableBody" class="table-body divide-y">
+                <tr><td colspan="6" class="px-4 py-8 text-center">로딩 중...</td></tr>
             </tbody>
         </table>
     </section>
 
     <section id="pagination" class="mt-6 flex justify-center items-center gap-2" style="display: none;">
-        <button onclick="goToPage(1)" class="px-3 py-2 bg-gray-700 rounded hover:bg-gray-600 disabled:opacity-50" id="firstBtn">처음</button>
-        <button onclick="goToPage(currentPage - 1)" class="px-3 py-2 bg-gray-700 rounded hover:bg-gray-600 disabled:opacity-50" id="prevBtn">이전</button>
-        <span class="text-gray-400 px-4" id="pageInfo">1 / 1</span>
-        <button onclick="goToPage(currentPage + 1)" class="px-3 py-2 bg-gray-700 rounded hover:bg-gray-600 disabled:opacity-50" id="nextBtn">다음</button>
-        <button onclick="goToPage(totalPages)" class="px-3 py-2 bg-gray-700 rounded hover:bg-gray-600 disabled:opacity-50" id="lastBtn">마지막</button>
+        <button onclick="goToPage(1)" class="pagination-btn px-3 py-2 rounded disabled:opacity-50" id="firstBtn">처음</button>
+        <button onclick="goToPage(currentPage - 1)" class="pagination-btn px-3 py-2 rounded disabled:opacity-50" id="prevBtn">이전</button>
+        <span class="pagination-info px-4" id="pageInfo">1 / 1</span>
+        <button onclick="goToPage(currentPage + 1)" class="pagination-btn px-3 py-2 rounded disabled:opacity-50" id="nextBtn">다음</button>
+        <button onclick="goToPage(totalPages)" class="pagination-btn px-3 py-2 rounded disabled:opacity-50" id="lastBtn">마지막</button>
     </section>
 </main>
 
@@ -212,7 +314,7 @@ function renderTable(data) {
     const tbody = document.getElementById('tableBody');
 
     if (analyzed.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-500">분석된 기사가 없습니다</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="6" class="px-4 py-8 text-center">분석된 기사가 없습니다</td></tr>';
         document.getElementById('pagination').style.display = 'none';
         document.getElementById('displayCount').textContent = '0';
         return;
@@ -226,24 +328,49 @@ function renderTable(data) {
     const startIdx = (currentPage - 1) * size;
     const endIdx = pageSize === 'all' ? analyzed.length : startIdx + size;
     const pageData = analyzed.slice(startIdx, endIdx);
+    
+    // Apply grouping if enabled
+    let groups = [];
+    let articleToGroup = new Map();
+    if (showGrouping) {
+        groups = groupSimilarArticles(pageData);
+        groups.forEach((group, groupIdx) => {
+            group.articles.forEach(article => {
+                articleToGroup.set(article, groupIdx);
+            });
+        });
+    }
 
-    tbody.innerHTML = pageData.map(r => `
-        <tr class="hover:bg-gray-800">
+    tbody.innerHTML = pageData.map(r => {
+        const bookmarked = isBookmarked(r);
+        const articleJson = JSON.stringify(r).replace(/'/g, '&apos;');
+        const groupIdx = articleToGroup.get(r);
+        const groupColor = groupIdx !== undefined ? groups[groupIdx].color : 'transparent';
+        const borderStyle = groupIdx !== undefined ? 'border-l-4' : '';
+        
+        return `
+        <tr class="${borderStyle}" style="border-left-color: ${groupColor}">
             <td class="px-3 py-3">
-                <a href="${r.link || '#'}" target="_blank" class="text-blue-400 hover:underline line-clamp-2">
-                    ${r.title || ''}
-                </a>
+                <div class="flex items-center gap-2">
+                    <button onclick='toggleBookmark(${articleJson}, event)' class="text-xl hover:scale-110 transition-transform" title="${bookmarked ? '찜 해제' : '찜하기'}">
+                        ${bookmarked ? '⭐' : '☆'}
+                    </button>
+                    ${groupIdx !== undefined ? `<span class="text-xs px-2 py-1 rounded font-bold" style="background-color: ${groupColor}; color: #1a1a1a;">그룹${groupIdx + 1}</span>` : ''}
+                    <a href="${r.link || '#'}" target="_blank" class="hover:underline line-clamp-2 flex-1">
+                        ${r.title || ''}
+                    </a>
+                </div>
             </td>
             <td class="px-2 py-3 text-center">${badge(r['소송가능성'])}</td>
             <td class="px-2 py-3 text-center">${badge(r['피해규모'])}</td>
             <td class="px-2 py-3 text-center">${badge(r['집단소송'])}</td>
             <td class="px-2 py-3 text-center">${badge(r['투자적합도'])}</td>
-            <td class="px-3 py-3 text-gray-300">
+            <td class="px-3 py-3">
                 <div class="whitespace-normal break-words leading-relaxed">${r['요약'] || ''}</div>
             </td>
-            <td class="px-2 py-3 text-gray-500 text-xs">${formatDate(r.pubDate)}</td>
         </tr>
-    `).join('');
+        `;
+    }).join('');
 
     document.getElementById('displayCount').textContent = analyzed.length;
 
@@ -268,6 +395,8 @@ function filterBy(grade) {
 function applyFilter() {
     if (currentFilter === 'all') {
         renderTable(allData);
+    } else if (currentFilter === 'bookmarked') {
+        renderTable(allData.filter(r => isBookmarked(r)));
     } else {
         renderTable(allData.filter(r => r['투자적합도'] === currentFilter));
     }
@@ -283,6 +412,112 @@ function changePageSize() {
     const select = document.getElementById('pageSize');
     pageSize = select.value;
     currentPage = 1;
+    applyFilter();
+}
+
+// Design Switching
+function switchDesign(designNum) {
+    for (let i = 1; i <= 4; i++) {
+        const btn = document.getElementById(`designBtn${i}`);
+        if (i === designNum) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    }
+    document.body.className = `design-${designNum} min-h-screen`;
+}
+
+// Bookmark System
+function getBookmarks() {
+    try {
+        return JSON.parse(localStorage.getItem('lawandgood_bookmarks') || '[]');
+    } catch (e) {
+        return [];
+    }
+}
+
+function generateArticleId(article) {
+    return btoa(encodeURIComponent((article.title || '') + (article.pubDate || ''))).substring(0, 32);
+}
+
+function isBookmarked(article) {
+    const id = generateArticleId(article);
+    return getBookmarks().some(b => b.id === id);
+}
+
+function toggleBookmark(article, event) {
+    if (event) event.stopPropagation();
+    
+    const id = generateArticleId(article);
+    let bookmarks = getBookmarks();
+    
+    if (bookmarks.some(b => b.id === id)) {
+        bookmarks = bookmarks.filter(b => b.id !== id);
+    } else {
+        bookmarks.push({
+            id: id,
+            title: article.title,
+            link: article.link,
+            grade: article['투자적합도'],
+            summary: article['요약'],
+            timestamp: Date.now()
+        });
+    }
+    
+    localStorage.setItem('lawandgood_bookmarks', JSON.stringify(bookmarks));
+    applyFilter();
+}
+
+// Title Similarity Grouping
+let showGrouping = false;
+
+function extractKeywords(title) {
+    if (!title) return [];
+    const words = title.match(/[가-힣]{2,}/g) || [];
+    const stopWords = ['기사', '관련', '대한', '통해', '위해', '대해', '따라', '의해', '에서', '에게', '으로', '에도', '부터', '까지'];
+    return words.filter(w => !stopWords.includes(w));
+}
+
+function calculateSimilarity(title1, title2) {
+    const keywords1 = new Set(extractKeywords(title1));
+    const keywords2 = new Set(extractKeywords(title2));
+    if (keywords1.size === 0 || keywords2.size === 0) return 0;
+    const intersection = new Set([...keywords1].filter(x => keywords2.has(x)));
+    const union = new Set([...keywords1, ...keywords2]);
+    return intersection.size / union.size;
+}
+
+function groupSimilarArticles(articles, threshold = 0.3) {
+    const groups = [];
+    const assigned = new Set();
+    
+    articles.forEach((article, idx) => {
+        if (assigned.has(idx)) return;
+        const group = {
+            articles: [article],
+            color: `hsl(${(groups.length * 137) % 360}, 70%, 75%)`
+        };
+        assigned.add(idx);
+        
+        articles.forEach((other, otherIdx) => {
+            if (otherIdx <= idx || assigned.has(otherIdx)) return;
+            if (calculateSimilarity(article.title, other.title) >= threshold) {
+                group.articles.push(other);
+                assigned.add(otherIdx);
+            }
+        });
+        
+        if (group.articles.length > 1) groups.push(group);
+    });
+    
+    return groups;
+}
+
+function toggleGrouping() {
+    showGrouping = !showGrouping;
+    const btn = document.querySelector('[onclick="toggleGrouping()"]');
+    if (btn) btn.textContent = showGrouping ? '🔗 그룹 해제' : '🔗 그룹화';
     applyFilter();
 }
 
